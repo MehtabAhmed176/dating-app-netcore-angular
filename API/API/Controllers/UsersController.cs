@@ -1,13 +1,13 @@
 using API.Data;
 using api.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController: ControllerBase
+[Authorize]
+public class UsersController: BaseApiController
 {
     private DataContext _context;
     
@@ -37,12 +37,5 @@ public class UsersController: ControllerBase
        // var user = _context.Users.Remove(id);
        return new AppUser();
     }
-
-    // [HttpPost]
-    // public ActionResult<AppUser> CreateUser(AppUser body)
-    // {
-    //     var user = _context.Users.Add(body);
-    //     
-    //     return user;
-    // }
+    
 }

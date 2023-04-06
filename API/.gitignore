@@ -3,3 +3,5 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+dating-app.db-shm
+dating-app.db-wal
