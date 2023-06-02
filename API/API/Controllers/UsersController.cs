@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using API.DTOs;
 using API.Interfaces;
 using AutoMapper;
@@ -34,10 +35,18 @@ public class UsersController: BaseApiController
       return await _iUserRepository.GetMemberAsync(username);
     }
     
-    [HttpDelete("{id}")]
-    public ActionResult<AppUser> DeleteUser(int id)
+    [HttpPut]
+    public async Task <ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
     {
-        return new AppUser();
+        var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var user = await _iUserRepository.GetUserByUserNameAsync(username);
+
+        if (user == null)  return NotFound("user not found");
+        _mapper.Map(memberUpdateDto, user); // make the MemberDto equals to user
+        if (await _iUserRepository.SaveAllAsync()) return NoContent();
+
+        return BadRequest("Failed to update user");
+
     }
     
 }
