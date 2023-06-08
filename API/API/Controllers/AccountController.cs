@@ -48,7 +48,8 @@ public class AccountController: BaseApiController
         return new UserDto
         {
             Username = user.UserName,
-            Token = _token.CreateToken(user)
+            Token = _token.CreateToken(user),
+            PhotoUrl = user.Photos.FirstOrDefault(x=>x.IsMain)?.Url
         };
     }
     
@@ -57,7 +58,7 @@ public class AccountController: BaseApiController
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDTO)
     {
         // FindAsyn is used when know the PK
-        var user = await _context.Users.FirstOrDefaultAsync(u=> u.UserName == loginDTO.Username);
+        var user = await _context.Users.Include(p=>p.Photos).SingleOrDefaultAsync(u=> u.UserName == loginDTO.Username);
         if (user == null) return Unauthorized("UserName invalid");
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -68,7 +69,8 @@ public class AccountController: BaseApiController
         if (areEqual) return new UserDto()
         {
             Username = user.UserName,
-            Token = _token.CreateToken(user)
+            Token = _token.CreateToken(user),
+            PhotoUrl = user.Photos.FirstOrDefault(x=>x.IsMain)?.Url
         };
         return Unauthorized("Invalid password");
     }

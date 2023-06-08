@@ -26,24 +26,24 @@
   </div>
   <div class="col-8">
     <tabset class="member-tabset" #memberTabs>
-        <tab heading="About {{member.knownAs}}">
-            <h4>Description</h4>
-            <p>{{member.introduction}}</p>
-            <h4>Looking for</h4>
-            <p>{{member.lookingFor}}</p>
-        </tab>
-        <tab heading="Interests">
-            <h4>Interests</h4>
-            <p>{{member.interests}}</p>
-        </tab>
-        <tab heading="Photos">
-            <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-            <p>Photos goes here</p>
-        </tab>
-        <tab heading="Messages">
-            <!-- <app-member-messages [username]="member.userName"></app-member-messages> -->
-            <p>Messages goes here</p>
-        </tab>
+      <tab heading="About {{member.knownAs}}">
+        <h4>Description</h4>
+        <p>{{member.introduction}}</p>
+        <h4>Looking for</h4>
+        <p>{{member.lookingFor}}</p>
+      </tab>
+      <tab heading="Interests">
+        <h4>Interests</h4>
+        <p>{{member.interests}}</p>
+      </tab>
+      <tab heading="Photos">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+        <app-photo-editor [member]="member"> </app-photo-editor>
+      </tab>
+      <tab heading="Messages">
+        <!-- <app-member-messages [username]="member.userName"></app-member-messages> -->
+        <p>Messages goes here</p>
+      </tab>
     </tabset>
-</div>
+  </div>
 </div>

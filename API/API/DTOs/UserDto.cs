@@ -9,4 +9,6 @@ public class UserDto
     [Required]
     [StringLength(8, MinimumLength = 4)]
     public string Token { get; set; }
+
+    public string PhotoUrl { get; set; } = "";
 }
